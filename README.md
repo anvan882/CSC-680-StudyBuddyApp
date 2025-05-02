@@ -22,13 +22,10 @@
 
 | Name              | GitHub Username     | Email                    |
 |-------------------|---------------------|---------------------------|
-| **Akash**         | `Sky343`            | alama@sfsu.edu            |
+| **Akash Lama**         | `Sky343`            | alama@sfsu.edu            |
 | **Arvin Ghanizadeh** | `arvinghanizadeh` | aghanizadeh@sfsu.edu     |
 | **Annison Van**   | `anvan882`          | avan@sfsu.edu             |
 
-## 📸 Screenshots
-
-_(Add screenshots here when available)_
 
 ## 🛠 Setup Instructions
 
