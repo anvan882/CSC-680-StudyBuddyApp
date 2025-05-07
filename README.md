@@ -31,4 +31,4 @@
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/StudyBuddy.git
+   git clone https://github.com/YOUR_USERNAME/StudyBuddy.git](https://github.com/anvan882/CSC-680-StudyBuddyApp.git
