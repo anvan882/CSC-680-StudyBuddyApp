@@ -1,0 +1,24 @@
+# Xcode
+DerivedData/
+*.xcworkspace
+*.xcuserstate
+*.xcuserdata
+*.DS_Store
+
+# Build products
+build/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+
+# CocoaPods / SwiftPM
+Pods/
+.swiftpm/
+Package.resolved
+
+# Fastlane & Carthage (if used)
+fastlane/report.xml
+carthage/
+
+# User settings
+*.xcscmblueprint
