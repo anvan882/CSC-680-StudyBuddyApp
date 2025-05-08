@@ -6,14 +6,22 @@
 //
 
 import UIKit
+import SwiftUI
 
 class ViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        // Create the SwiftUI View
+        let mainView = MainScreen()
+
+        // Embed it using UIHostingController
+        let hostingController = UIHostingController(rootView: mainView)
+
+        // Add as child view controller
+        addChild(hostingController)
+        hostingController.view.frame = view.bounds
+        view.addSubview(hostingController.view)
+        hostingController.didMove(toParent: self)
     }
-
-
 }
-
