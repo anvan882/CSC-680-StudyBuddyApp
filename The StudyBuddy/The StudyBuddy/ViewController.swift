@@ -13,7 +13,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         // Create the SwiftUI View
-        let mainView = MainScreen()
+        let mainView = TabBarView()
 
         // Embed it using UIHostingController
         let hostingController = UIHostingController(rootView: mainView)

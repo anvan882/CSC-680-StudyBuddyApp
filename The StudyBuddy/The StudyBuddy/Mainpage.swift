@@ -83,16 +83,6 @@ struct MainScreen: View {
             .padding(.horizontal)
 
             Spacer()
-
-            HStack(spacing: 40) {
-                navItem("house", "Home")
-                navItem("clock", "Session")
-                navItem("flag", "Goals")
-                navItem("gear", "Setting")
-            }
-            .padding(.vertical, 12)
-            .frame(maxWidth: .infinity)
-            .background(Color(red: 0.46, green: 0.68, blue: 0.96))
         }
         .edgesIgnoringSafeArea(.bottom)
     }

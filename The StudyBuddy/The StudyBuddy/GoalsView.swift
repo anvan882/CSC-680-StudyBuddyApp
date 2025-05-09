@@ -67,3 +67,4 @@ struct GoalsView: View {
         }
     }
 }
+
