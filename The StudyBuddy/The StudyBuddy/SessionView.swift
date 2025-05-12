@@ -5,8 +5,8 @@
 //  Created by AKASH LAMA on 5/7/25.
 //
 
-
 import SwiftUI
+
 struct Task: Identifiable {
     let id = UUID()
     var name: String
@@ -14,8 +14,9 @@ struct Task: Identifiable {
 }
 
 struct SessionView: View {
+    @AppStorage("studyDuration") private var studyDuration = 25 // minutes
     @State private var isRunning = false
-    @State private var timeRemaining = 1500 // 25 minutes
+    @State private var timeRemaining: Int = 0
     @State private var timer: Timer?
     @State private var tasks: [Task] = []
     @State private var newTask = ""
@@ -33,6 +34,9 @@ struct SessionView: View {
                 }
                 .padding()
             }
+        }
+        .onAppear {
+            timeRemaining = studyDuration * 60
         }
         .onDisappear {
             timer?.invalidate()
@@ -68,11 +72,14 @@ struct SessionView: View {
                     .frame(width: 60, height: 60)
                     .foregroundColor(.blue)
             }
-            
             .padding(.top, 10)
+
+            Button("Reset Timer") {
+                resetTimer()
+            }
+            .foregroundColor(.red)
+            .padding(.top, 4)
         }
-        
-        
     }
 
     // MARK: - Tasks Section
@@ -144,6 +151,12 @@ struct SessionView: View {
         } else {
             timer?.invalidate()
         }
+    }
+
+    private func resetTimer() {
+        timer?.invalidate()
+        isRunning = false
+        timeRemaining = studyDuration * 60
     }
 
     private func addTask() {
