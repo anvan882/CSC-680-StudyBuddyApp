@@ -1,10 +1,3 @@
-//
-//  TabBarView.swift
-//  The StudyBuddy
-//
-//  Created by Annison Van on 5/9/25.
-//
-
 import SwiftUI
 
 struct TabBarView: View {
