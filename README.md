@@ -6,6 +6,7 @@
 
 - Add, edit, and delete study tasks
 - Set due dates and mark tasks as complete
+- Set study time with the user preference.
 - View weekly overview of tasks
 - Track task completion progress
 - CoreData-powered local storage (no internet required)
