@@ -11,6 +11,10 @@
 - CoreData-powered local storage (no internet required)
 - Clean and responsive SwiftUI interface
 - Optional light/dark mode support
+  
+## The Wireframe for project
+- Here is the link for the for our wireframe, the content in it is subject to change in both code or the Wireframe:
+https://www.figma.com/design/4dlBT5fuIIO9iQ4JIThJcV/The-Planner?node-id=0-1&t=Mqz1QrwgGCaGFnxJ-1
 
 ## 📱 Tech Stack
 
