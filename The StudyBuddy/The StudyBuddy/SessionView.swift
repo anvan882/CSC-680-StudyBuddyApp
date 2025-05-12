@@ -100,17 +100,28 @@ struct SessionView: View {
             TextField("Enter a new task", text: $newTask)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
 
-            ForEach($tasks) { $task in
+            ForEach(Array(tasks.enumerated()), id: \.element.id) { index, task in
                 HStack {
                     Button(action: {
-                        task.isDone.toggle()
+                        tasks[index].isDone.toggle()
                     }) {
                         Image(systemName: task.isDone ? "checkmark.square.fill" : "square")
+                            .foregroundColor(.blue)
                     }
-                    .foregroundColor(.blue)
 
-                    TextField("Task", text: $task.name)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    TextField("Task", text: Binding(
+                        get: { tasks[index].name },
+                        set: { tasks[index].name = $0 }
+                    ))
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+
+                    Button(action: {
+                        tasks.remove(at: index)
+                    }) {
+                        Image(systemName: "trash")
+                            .foregroundColor(.red)
+                    }
+                    .padding(.leading, 4)
                 }
             }
         }
