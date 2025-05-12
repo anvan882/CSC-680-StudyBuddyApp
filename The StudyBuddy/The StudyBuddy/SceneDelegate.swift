@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  The StudyBuddy
-//
-//  Created by Arvin on 5/7/25.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {

@@ -1,10 +1,3 @@
-//
-//  SessionView.swift
-//  The StudyBuddy
-//
-//  Created by AKASH LAMA on 5/7/25.
-//
-
 import SwiftUI
 
 struct Task: Identifiable {

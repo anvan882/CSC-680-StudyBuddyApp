@@ -1,10 +1,3 @@
-//
-//  Mainpage.swift
-//  The StudyBuddy
-//
-//  Created by Arvin on 5/7/25.
-//
-
 import SwiftUI
 
 struct MainScreen: View {
@@ -123,6 +116,20 @@ struct MainScreen: View {
         .onAppear {
             tempGoal = studyGoal
             tempQuote = quoteOfTheDay
+            
+            // FireBaseManager testing
+            FireBaseManager.shared.saveSession(for: "Math", tasks: ["Review Chapter 1"], notes: "Focus on derivatives") { error in
+                    if let error = error {
+                        print("🔥 Error saving session: \(error.localizedDescription)")
+                    } else {
+                        print("✅ Session saved successfully!")
+                    }
+
+                    FireBaseManager.shared.fetchSession(for: "Math") { tasks, notes in
+                        print("📘 Tasks:", tasks)
+                        print("📝 Notes:", notes)
+                    }
+                }
         }
         .edgesIgnoringSafeArea(.bottom)
     }

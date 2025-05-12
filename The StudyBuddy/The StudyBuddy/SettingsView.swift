@@ -1,11 +1,3 @@
-//
-//  SettingsView.swift
-//  The StudyBuddy
-//
-//  Created by Akash on 5/9/26.
-//
-
-
 import SwiftUI
 
 struct SettingsView: View {

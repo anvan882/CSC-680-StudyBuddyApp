@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  The StudyBuddy
-//
-//  Created by Arvin on 5/7/25.
-//
-
 import UIKit
 import SwiftUI
 
