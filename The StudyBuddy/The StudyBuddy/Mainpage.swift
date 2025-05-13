@@ -1,5 +1,11 @@
 import SwiftUI
 
+struct Subject: Identifiable, Equatable {
+    let id = UUID()
+    var name: String
+    var isStarred: Bool
+}
+
 struct MainScreen: View {
     @AppStorage("studyGoal") private var studyGoal: String = ""
     @AppStorage("quoteOfTheDay") private var quoteOfTheDay: String = ""
@@ -7,150 +13,181 @@ struct MainScreen: View {
     @State private var tempGoal: String = ""
     @State private var tempQuote: String = ""
 
+    @State private var subjects: [Subject] = [
+        Subject(name: "Math", isStarred: false),
+        Subject(name: "History", isStarred: false),
+        Subject(name: "Biology", isStarred: false),
+        Subject(name: "English", isStarred: false)
+    ]
+
+    @State private var showAddSubjectPrompt = false
+    @State private var newSubjectName = ""
+
     var body: some View {
-        VStack(spacing: 24) {
-
-            // The Header
-            ZStack(alignment: .bottom) {
-                Color(red: 0.46, green: 0.68, blue: 0.96)
-                    .ignoresSafeArea(edges: .top)
-
-                VStack(spacing: 10) {
+        ScrollView {
+            VStack(spacing: 20) {
+                HStack {
                     Image("planner_logo")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 60, height: 60)
+                        .frame(width: 36, height: 36)
                         .clipShape(Circle())
-                        .shadow(radius: 4)
+                        .shadow(radius: 2)
+
+                    Spacer()
 
                     Text("STUDY BUDDY")
-                        .font(.system(size: 32, weight: .semibold, design: .rounded))
+                        .font(.system(size: 24, weight: .bold, design: .rounded))
                         .foregroundColor(.black)
-                }
-                .padding(.bottom, 12)
-            }
-            .frame(height: 160)
 
-            // The Daily Goal section
-            VStack(alignment: .leading, spacing: 4) {
-                HStack {
-                    Text("Daily Study Goal")
-                        .font(.system(size: 20, weight: .semibold, design: .rounded))
                     Spacer()
-                    Button(action: {
-                        studyGoal = tempGoal
-                    }) {
-                        Image(systemName: "square.and.arrow.down")
-                            .foregroundColor(.blue)
-                    }
                 }
+                .padding()
+                .background(Color(red: 0.46, green: 0.68, blue: 0.96))
+                .ignoresSafeArea(edges: .top)
 
-                ZStack(alignment: .bottomTrailing) {
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack {
+                        Text("Daily Study Goal")
+                            .font(.system(size: 20, weight: .semibold, design: .rounded))
+                        Spacer()
+                        Button(action: { studyGoal = tempGoal }) {
+                            Image(systemName: "square.and.arrow.down")
+                                .foregroundColor(.blue)
+                        }
+                    }
+
                     TextEditor(text: $tempGoal)
                         .frame(height: 80)
                         .padding(4)
                         .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.4)))
                 }
-            }
-            .padding(.horizontal)
+                .padding(.horizontal)
 
-            // The start
-            Button(action: {
-                // The Start study action
-            }) {
-                Text("Start Studying")
-                    .font(.system(size: 20, weight: .bold, design: .rounded))
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.black, lineWidth: 1)
-                    )
-                    .shadow(radius: 4)
-            }
-            .padding(.horizontal)
+                Button(action: {}) {
+                    Text("Start Studying")
+                        .font(.system(size: 20, weight: .bold, design: .rounded))
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.black, lineWidth: 1)
+                        )
+                        .shadow(radius: 4)
+                }
+                .padding(.horizontal)
 
-            // The subjects button
-            VStack(spacing: 12) {
-                HStack(spacing: 16) {
-                    subjectButton("Math")
-                    subjectButton("History")
-                }
-                HStack(spacing: 16) {
-                    subjectButton("Biology")
-                    subjectButton("English")
-                }
-                HStack {
-                    subjectButton("Add new subject +")
-                }
-            }
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack {
+                        Text("Your Study Subjects")
+                            .font(.system(size: 18, weight: .semibold))
+                        Spacer()
+                        Button(action: { showAddSubjectPrompt = true }) {
+                            Image(systemName: "plus.circle.fill")
+                                .resizable()
+                                .frame(width: 24, height: 24)
+                                .foregroundColor(.blue)
+                        }
+                    }
 
-            // The Qoute sections
-            VStack(alignment: .leading, spacing: 4) {
-                HStack {
-                    Text("Quote of the Day")
-                        .font(.system(size: 20, weight: .semibold, design: .rounded))
-                    Spacer()
-                    Button(action: {
-                        quoteOfTheDay = tempQuote
-                    }) {
-                        Image(systemName: "square.and.arrow.down")
-                            .foregroundColor(.blue)
+                    Text("Scroll to see all your subjects. Tap ⭐ to prioritize.")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 12) {
+                            ForEach(sortedSubjects) { subject in
+                                ZStack(alignment: .topTrailing) {
+                                    Button(action: {}) {
+                                        Text(subject.name)
+                                            .font(.system(size: 16, weight: .medium, design: .rounded))
+                                            .frame(width: 100, height: 60)
+                                            .background(Color.gray.opacity(0.3))
+                                            .cornerRadius(10)
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 10)
+                                                    .stroke(Color.black, lineWidth: 1)
+                                            )
+                                            .shadow(radius: 3)
+                                            .foregroundColor(.black)
+                                    }
+
+                                    Button(action: {
+                                        if let index = subjects.firstIndex(of: subject) {
+                                            subjects.remove(at: index)
+                                        }
+                                    }) {
+                                        Image(systemName: "trash")
+                                            .resizable()
+                                            .frame(width: 14, height: 14)
+                                            .foregroundColor(.red)
+                                            .padding(6)
+                                    }
+                                    .offset(x: 4, y: -4)
+
+                                    Button(action: {
+                                        if let index = subjects.firstIndex(of: subject) {
+                                            subjects[index].isStarred.toggle()
+                                        }
+                                    }) {
+                                        Image(systemName: subject.isStarred ? "star.fill" : "star")
+                                            .resizable()
+                                            .frame(width: 14, height: 14)
+                                            .foregroundColor(.yellow)
+                                            .padding(6)
+                                    }
+                                    .offset(x: -22, y: -4)
+                                }
+                            }
+                        }
+                        .padding(.vertical, 4)
                     }
                 }
+                .padding(.horizontal)
 
-                ZStack(alignment: .bottomTrailing) {
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack {
+                        Text("Quote of the Day")
+                            .font(.system(size: 20, weight: .semibold, design: .rounded))
+                        Spacer()
+                        Button(action: { quoteOfTheDay = tempQuote }) {
+                            Image(systemName: "square.and.arrow.down")
+                                .foregroundColor(.blue)
+                        }
+                    }
+
                     TextEditor(text: $tempQuote)
                         .frame(height: 80)
                         .padding(4)
                         .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.4)))
                 }
+                .padding(.horizontal)
+
+                Spacer()
             }
-            .padding(.horizontal)
-
-            Spacer()
-        }
-        .onAppear {
-            tempGoal = studyGoal
-            tempQuote = quoteOfTheDay
-            
-            // FireBaseManager testing
-            FireBaseManager.shared.saveSession(for: "Math", tasks: ["Review Chapter 1"], notes: "Focus on derivatives") { error in
-                    if let error = error {
-                        print("🔥 Error saving session: \(error.localizedDescription)")
-                    } else {
-                        print("✅ Session saved successfully!")
+            .onAppear {
+                tempGoal = studyGoal
+                tempQuote = quoteOfTheDay
+            }
+            .alert("Add New Subject", isPresented: $showAddSubjectPrompt, actions: {
+                TextField("Enter subject name", text: $newSubjectName)
+                Button("Add", action: {
+                    let trimmed = newSubjectName.trimmingCharacters(in: .whitespaces)
+                    if !trimmed.isEmpty && !subjects.contains(where: { $0.name == trimmed }) {
+                        subjects.append(Subject(name: trimmed, isStarred: false))
                     }
-
-                    FireBaseManager.shared.fetchSession(for: "Math") { tasks, notes in
-                        print("📘 Tasks:", tasks)
-                        print("📝 Notes:", notes)
-                    }
-                }
+                    newSubjectName = ""
+                })
+                Button("Cancel", role: .cancel, action: {})
+            })
         }
         .edgesIgnoringSafeArea(.bottom)
     }
 
-    // The subject Button view
-    func subjectButton(_ title: String) -> some View {
-        Button(action: {
-        }) {
-            Text(title)
-                .font(.system(size: 16, weight: .medium, design: .rounded))
-                .frame(width: 140, height: 60)
-                .background(Color.gray.opacity(0.3))
-                .cornerRadius(10)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.black, lineWidth: 1)
-                )
-                .shadow(radius: 3)
-                .foregroundColor(.black)
-        }
+    var sortedSubjects: [Subject] {
+        subjects.sorted { ($0.isStarred && !$1.isStarred) }
     }
 }
-
-
