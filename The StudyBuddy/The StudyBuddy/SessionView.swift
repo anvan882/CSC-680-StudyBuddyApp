@@ -23,8 +23,13 @@ struct SessionView: View {
 
             ScrollView {
                 VStack(spacing: 24) {
-                    Text("📘 \(subject.name)") //Show The subject name
-                        .font(.title)
+                    Text("📘 \(subject.name)") // Show the subject name
+
+                    Text("Adjust timer in settings and reset the timer to start from the time you set in the settings. If you are using the subject’s presets, to reset time you must leave the page and enter the preset again.")
+                        .font(.footnote) // smaller
+                        .foregroundColor(.gray) // gray color
+                        .multilineTextAlignment(.leading)
+                        .padding(.horizontal)
                         .padding(.top, 8)
 
                     timerSection
@@ -42,6 +47,7 @@ struct SessionView: View {
             timer?.invalidate()
         }
     }
+
 
     // MARK: - Header
     private var header: some View {

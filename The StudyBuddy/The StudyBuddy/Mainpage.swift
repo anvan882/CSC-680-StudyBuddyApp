@@ -1,15 +1,6 @@
 import SwiftUI
 
-struct Subject: Identifiable, Equatable {
-    let id = UUID()
-    var name: String
-    var isStarred: Bool
-    var customDuration: Int?
-    var goal: String?
-    var checklist: [String]
-    var notes: String?
-}
-
+@MainActor
 struct MainScreen: View {
     @AppStorage("studyGoal") private var studyGoal: String = ""
     @AppStorage("quoteOfTheDay") private var quoteOfTheDay: String = ""
@@ -18,7 +9,8 @@ struct MainScreen: View {
     @State private var tempQuote: String = ""
 
     @State private var subjects: [Subject] = [
-        Subject(name: "Math", isStarred: false, customDuration: 170, goal: "No Goal", checklist: [], notes: "Math note")
+        Subject(name: "Math", isStarred: false, customDuration: 2700, goal: "No Goal", checklist: [], notes: "Math note"),
+        Subject(name: "Rest", isStarred: false, customDuration: 900, goal: "No Goal", checklist: [], notes: "Rest note")
     ]
 
     @State private var selectedSubject: Subject? = nil
@@ -50,6 +42,7 @@ struct MainScreen: View {
                     .background(Color(red: 0.46, green: 0.68, blue: 0.96))
                     .ignoresSafeArea(edges: .top)
 
+                    // Daily Goal Editor
                     VStack(alignment: .leading, spacing: 4) {
                         HStack {
                             Text("Daily Study Goal")
@@ -68,7 +61,7 @@ struct MainScreen: View {
                     }
                     .padding(.horizontal)
 
-                    // Green Start Studying Button (as General Subject)
+                    // Start Studying Button
                     Button(action: {
                         selectedSubject = generalSubject
                         isNavigatingToSession = true
@@ -80,15 +73,12 @@ struct MainScreen: View {
                             .background(Color.green)
                             .foregroundColor(.white)
                             .cornerRadius(10)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.black, lineWidth: 1)
-                            )
+                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black, lineWidth: 1))
                             .shadow(radius: 4)
                     }
                     .padding(.horizontal)
 
-                    // The Subject Buttons
+                    // Subject List
                     VStack(alignment: .leading, spacing: 8) {
                         HStack {
                             Text("Your Study Subjects")
@@ -102,7 +92,7 @@ struct MainScreen: View {
                             }
                         }
 
-                        Text("Scroll to see all your subjects. Tap ⭐ to prioritize.")
+                        Text("These are preset subject that you can add by click on + on the right and fill the form and save it as a new preset which save your entered informations. Scroll to see all your subjects. Tap ⭐ to prioritize.")
                             .font(.caption)
                             .foregroundColor(.gray)
 
@@ -119,10 +109,7 @@ struct MainScreen: View {
                                                 .frame(width: 100, height: 60)
                                                 .background(Color.gray.opacity(0.3))
                                                 .cornerRadius(10)
-                                                .overlay(
-                                                    RoundedRectangle(cornerRadius: 10)
-                                                        .stroke(Color.black, lineWidth: 1)
-                                                )
+                                                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black, lineWidth: 1))
                                                 .shadow(radius: 3)
                                                 .foregroundColor(.black)
                                         }
@@ -160,7 +147,7 @@ struct MainScreen: View {
                     }
                     .padding(.horizontal)
 
-                    // The Quote
+                    // Quote of the Day
                     VStack(alignment: .leading, spacing: 4) {
                         HStack {
                             Text("Quote of the Day")
