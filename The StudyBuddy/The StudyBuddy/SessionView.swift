@@ -7,6 +7,8 @@ struct Task: Identifiable {
 }
 
 struct SessionView: View {
+    var subject: Subject // Accept the subject from MainScreen
+
     @AppStorage("studyDuration") private var studyDuration = 25 // minutes
     @State private var isRunning = false
     @State private var timeRemaining: Int = 0
@@ -21,6 +23,10 @@ struct SessionView: View {
 
             ScrollView {
                 VStack(spacing: 24) {
+                    Text("📘 \(subject.name)") //Show The subject name
+                        .font(.title)
+                        .padding(.top, 8)
+
                     timerSection
                     tasksSection
                     notesSection
@@ -29,7 +35,8 @@ struct SessionView: View {
             }
         }
         .onAppear {
-            timeRemaining = studyDuration * 60
+            timeRemaining = subject.customDuration ?? studyDuration * 60 // subject timer duration
+            notes = subject.notes ?? ""
         }
         .onDisappear {
             timer?.invalidate()
