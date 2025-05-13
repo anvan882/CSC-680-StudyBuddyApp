@@ -17,7 +17,7 @@
 - Here is the link for the for our wireframe, the content in it is subject to change in both code or the Wireframe:
 https://www.figma.com/design/4dlBT5fuIIO9iQ4JIThJcV/The-Planner?node-id=0-1&t=Mqz1QrwgGCaGFnxJ-1
 
-<img width="84" alt="Screenshot_2025-05-13_at_2 59 59_PM" src="https://github.com/user-attachments/assets/d74ea254-e377-4795-ab1d-1ca4700bbac3" />
+<img width="800" alt="Screenshot 2025-05-13 at 3 09 58 PM" src="https://github.com/user-attachments/assets/b9f17abf-4174-4f0b-867d-ec738c90e532" />
 
 
 
