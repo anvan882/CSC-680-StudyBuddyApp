@@ -116,7 +116,24 @@ struct MainScreen: View {
         .onAppear {
             tempGoal = studyGoal
             tempQuote = quoteOfTheDay
+            
+            // FireBaseManager testing
+            FireBaseManager.shared.saveSession(for: "Math", tasks: ["Review Chapter 1"], notes: "Focus on derivatives") { error in
+                    if let error = error {
+                        print("🔥 Error saving session: \(error.localizedDescription)")
+                    } else {
+                        print("✅ Session saved successfully!")
+                    }
+
+                    FireBaseManager.shared.fetchSession(for: "Math") { tasks, notes in
+                        print("📘 Tasks:", tasks)
+                        print("📝 Notes:", notes)
+                    }
+                }
         }
+        .edgesIgnoringSafeArea(.bottom)
+    }
+
     // The subject Button view
     func subjectButton(_ title: String) -> some View {
         Button(action: {
