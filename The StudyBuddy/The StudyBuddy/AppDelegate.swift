@@ -1,5 +1,6 @@
 import UIKit
 import Firebase
+import FirebaseAuth
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -8,6 +9,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         FirebaseApp.configure()
+        FireBaseManager.shared.signInAnonymouslyIfNeeded()
+
+        // 🔐 Anonymous sign-in
+        if Auth.auth().currentUser == nil {
+            Auth.auth().signInAnonymously { result, error in
+                if let error = error {
+                    print("❌ Anonymous sign-in failed:", error.localizedDescription)
+                } else {
+                    print("✅ Signed in as:", result?.user.uid ?? "unknown")
+                }
+            }
+        }
 
         return true
     }
@@ -27,5 +40,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // No need to modify this
     }
 }
-
 

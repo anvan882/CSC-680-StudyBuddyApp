@@ -27,11 +27,35 @@ struct GoalsView: View {
                     longTermGoalSection
                     progressSection
                     rewardsSection()
+                    saveButtonSection
                 }
                 .padding(.bottom, 40)
             }
         }
         .edgesIgnoringSafeArea(.top)
+        
+        .onAppear {
+            FireBaseManager.shared.fetchGoalsViewData { goal, progress, rewardStrings, streak in
+                longTermGoal = goal
+                weeklyProgress = progress
+                rewards = rewardStrings.map { Reward(text: $0) }
+                streakCount = streak
+            }
+        }
+
+    }
+    
+    // MARK: - Save Button Section
+    private var saveButtonSection: some View {
+        Button(action: saveGoalsToFirebase) {
+            Text("Save Goals")
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(12)
+        }
+        .padding()
     }
 
     // MARK: - Header
@@ -211,5 +235,21 @@ struct GoalsView: View {
             }
         }
     }
+    
+    private func saveGoalsToFirebase() {
+        FireBaseManager.shared.saveGoalsViewData(
+            longTermGoal: longTermGoal,
+            weeklyProgress: weeklyProgress,
+            rewards: rewards.map { $0.text },
+            streakCount: streakCount
+        ) { error in
+            if let error = error {
+                print("❌ Error saving goals:", error.localizedDescription)
+            } else {
+                print("✅ Goals saved successfully.")
+            }
+        }
+    }
+
 }
 
