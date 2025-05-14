@@ -8,19 +8,15 @@ struct MainScreen: View {
     @State private var tempGoal: String = ""
     @State private var tempQuote: String = ""
 
-    @State private var subjects: [Subject] = [
-        Subject(name: "Math", isStarred: false, customDuration: 2700, goal: "No Goal", checklist: [], notes: "Math note"),
-        Subject(name: "Rest", isStarred: false, customDuration: 900, goal: "No Goal", checklist: [], notes: "Rest note")
-    ]
-
-    @State private var selectedSubject: Subject? = nil
-    @State private var isNavigatingToSession = false
-    @State private var generalSubject = Subject(name: "General", isStarred: false, customDuration: nil, goal: nil, checklist: [], notes: nil)
+    @Binding var subjects: [Subject]
+    @Binding var selectedTab: Int
+    @Binding var selectedSubject: Subject?
 
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 20) {
+                VStack(spacing: 24) {
+
                     // Header
                     HStack {
                         Image("planner_logo")
@@ -63,8 +59,14 @@ struct MainScreen: View {
 
                     // Start Studying Button
                     Button(action: {
-                        selectedSubject = generalSubject
-                        isNavigatingToSession = true
+                        if let existing = subjects.first(where: { $0.name == "General" }) {
+                                                    selectedSubject = existing
+                                                } else {
+                                                    let general = Subject(name: "General", isStarred: false, customDuration: nil, goal: nil, checklist: [], notes: nil)
+                                                    subjects.append(general)
+                                                    selectedSubject = general
+                                                }
+                                                selectedTab = 1
                     }) {
                         Text("Start Studying")
                             .font(.system(size: 20, weight: .bold, design: .rounded))
@@ -92,7 +94,7 @@ struct MainScreen: View {
                             }
                         }
 
-                        Text("These are preset subject that you can add by click on + on the right and fill the form and save it as a new preset which save your entered informations. Scroll to see all your subjects. Tap ⭐ to prioritize.")
+                        Text("Add your subject to start studying.")
                             .font(.caption)
                             .foregroundColor(.gray)
 
@@ -102,7 +104,7 @@ struct MainScreen: View {
                                     ZStack(alignment: .topTrailing) {
                                         Button(action: {
                                             selectedSubject = subject
-                                            isNavigatingToSession = true
+                                            selectedTab = 1
                                         }) {
                                             Text(subject.name)
                                                 .font(.system(size: 16, weight: .medium, design: .rounded))
@@ -172,11 +174,6 @@ struct MainScreen: View {
             .onAppear {
                 tempGoal = studyGoal
                 tempQuote = quoteOfTheDay
-            }
-            .navigationDestination(isPresented: $isNavigatingToSession) {
-                if let subject = selectedSubject {
-                    SessionView(subject: subject)
-                }
             }
         }
     }

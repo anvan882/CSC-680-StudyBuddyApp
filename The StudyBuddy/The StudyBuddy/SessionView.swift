@@ -7,8 +7,7 @@ struct Task: Identifiable {
 }
 
 struct SessionView: View {
-    var subject: Subject // Accept the subject from MainScreen
-
+    @Binding var subject: Subject
     @AppStorage("studyDuration") private var studyDuration = 25 // minutes
     @State private var isRunning = false
     @State private var timeRemaining: Int = 0
@@ -25,13 +24,12 @@ struct SessionView: View {
                 VStack(spacing: 24) {
                     Text("📘 \(subject.name)") // Show the subject name
 
-                    Text("Adjust timer in settings and reset the timer to start from the time you set in the settings. If you are using the subject’s presets, to reset time you must leave the page and enter the preset again.")
+                    Text("Adjust timer in settings ")
                         .font(.footnote) // smaller
                         .foregroundColor(.gray) // gray color
                         .multilineTextAlignment(.leading)
                         .padding(.horizontal)
                         .padding(.top, 8)
-
                     timerSection
                     tasksSection
                     notesSection
@@ -40,12 +38,16 @@ struct SessionView: View {
             }
         }
         .onAppear {
-            timeRemaining = subject.customDuration ?? studyDuration * 60 // subject timer duration
+            timeRemaining = subject.customDuration ?? studyDuration * 60
             notes = subject.notes ?? ""
+            tasks = subject.checklist.map { Task(name: $0) }
         }
         .onDisappear {
             timer?.invalidate()
+            subject.checklist = tasks.map { $0.name }
+            subject.notes = notes
         }
+        
     }
 
 

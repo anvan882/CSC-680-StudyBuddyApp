@@ -23,7 +23,7 @@ struct GoalsView: View {
             Divider()
 
             ScrollView(.vertical, showsIndicators: true) {
-                VStack(spacing: 20) {
+                VStack(spacing: 24) {
                     longTermGoalSection
                     progressSection
                     rewardsSection()
@@ -31,7 +31,6 @@ struct GoalsView: View {
                 .padding(.bottom, 40)
             }
         }
-        .edgesIgnoringSafeArea(.top)
     }
 
     // MARK: - Header
@@ -46,7 +45,7 @@ struct GoalsView: View {
         }
         .padding()
         .background(Color(red: 0.46, green: 0.68, blue: 0.96))
-        .zIndex(1)
+        //.zIndex(1)
     }
 
     // MARK: - Long-Term Goal Section
