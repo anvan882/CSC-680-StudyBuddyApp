@@ -17,23 +17,26 @@ struct GoalsView: View {
     private let dayLabels = ["M", "T", "W", "TH", "F", "ST", "SN"]
 
     var body: some View {
-        VStack(spacing: 0) {
-            header
+        ZStack {
+            Color(red: 0.93, green: 0.96, blue: 0.99)
+                .ignoresSafeArea()
 
-            Divider()
+            VStack(spacing: 0) {
+                header
 
-            ScrollView(.vertical, showsIndicators: true) {
-                VStack(spacing: 24) {
-                    longTermGoalSection
-                    progressSection
-                    rewardsSection()
-                    saveButtonSection
+                Divider()
+
+                ScrollView(.vertical, showsIndicators: true) {
+                    VStack(spacing: 24) {
+                        longTermGoalSection
+                        progressSection
+                        rewardsSection()
+                        saveButtonSection
+                    }
+                    .padding(.bottom, 40)
                 }
-                .padding(.bottom, 40)
             }
         }
-       // .edgesIgnoringSafeArea(.top)
-        
         .onAppear {
             FireBaseManager.shared.fetchGoalsViewData { goal, progress, rewardStrings, streak in
                 longTermGoal = goal
@@ -42,21 +45,6 @@ struct GoalsView: View {
                 streakCount = streak
             }
         }
-
-    }
-    
-    // MARK: - Save Button Section
-    private var saveButtonSection: some View {
-        Button(action: saveGoalsToFirebase) {
-            Text("Save Goals")
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(12)
-        }
-        .padding()
-
     }
 
     // MARK: - Header
@@ -69,9 +57,11 @@ struct GoalsView: View {
                 .bold()
             Spacer()
         }
-        .padding()
+        .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top ?? 20)
+        .padding(.bottom, 12)
+        .padding(.horizontal)
         .background(Color(red: 0.46, green: 0.68, blue: 0.96))
-        //.zIndex(1)
+        .ignoresSafeArea(edges: .top)
     }
 
     // MARK: - Long-Term Goal Section
@@ -182,6 +172,19 @@ struct GoalsView: View {
         .padding()
     }
 
+    // MARK: - Save Button Section
+    private var saveButtonSection: some View {
+        Button(action: saveGoalsToFirebase) {
+            Text("Save Goals")
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(12)
+        }
+        .padding()
+    }
+
     // MARK: - Reward Item View
     struct RewardItemView: View {
         @Binding var rewardText: String
@@ -227,7 +230,6 @@ struct GoalsView: View {
             streakCount += 1
             showCompletionMessage = true
 
-            // Reset after 10 seconds
             DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
                 withAnimation {
                     showCompletionMessage = false
@@ -236,7 +238,8 @@ struct GoalsView: View {
             }
         }
     }
-    
+
+    // MARK: - Firebase Save
     private func saveGoalsToFirebase() {
         FireBaseManager.shared.saveGoalsViewData(
             longTermGoal: longTermGoal,
@@ -251,6 +254,5 @@ struct GoalsView: View {
             }
         }
     }
-
 }
 

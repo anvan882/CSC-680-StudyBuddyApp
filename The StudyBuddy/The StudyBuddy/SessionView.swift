@@ -17,26 +17,32 @@ struct SessionView: View {
     @State private var notes = ""
 
     var body: some View {
-        VStack(spacing: 0) {
-            header
+        ZStack {
+            Color(red: 0.93, green: 0.96, blue: 0.99)
+                .ignoresSafeArea()
+            
+            VStack(spacing: 0) {
+                header
 
-            ScrollView {
-                VStack(spacing: 24) {
-                    Text("📘 \(subject.name)") // Show the subject name
+                ScrollView {
+                    VStack(spacing: 24) {
+                        Text("📘 \(subject.name)") // Show the subject name
 
-                    Text("Adjust timer in settings ")
-                        .font(.footnote) // smaller
-                        .foregroundColor(.gray) // gray color
-                        .multilineTextAlignment(.leading)
-                        .padding(.horizontal)
-                        .padding(.top, 8)
-                    timerSection
-                    tasksSection
-                    notesSection
+                        Text("Adjust timer in settings ")
+                            .font(.footnote) // smaller
+                            .foregroundColor(.gray) // gray color
+                            .multilineTextAlignment(.leading)
+                            .padding(.horizontal)
+                            .padding(.top, 8)
+                        timerSection
+                        tasksSection
+                        notesSection
+                    }
+                    .padding()
                 }
-                .padding()
             }
         }
+        
         .onAppear {
             timeRemaining = subject.customDuration ?? studyDuration * 60
             notes = subject.notes ?? ""
