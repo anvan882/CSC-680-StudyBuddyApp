@@ -26,8 +26,8 @@ These are the **required features** to meet the project’s goals and deliver a 
 - Navigation across Home, Session, Goals, and Settings screens
 - To be easy, simple and quick to use
 
-**No Login Needed**
-No accounts, no passwords. This app just works and your device gets a unique ID, and everything you do is saved securely with Firebase, just for you.
+### Feature
+No sign-ups, no passwords — just open the app and start using it. Your device acts as your login. We securely store your Goals data so you can easily track your progress anytime.
 
 ### 🌟 Nice-to-Have Features (Future Enhancements)
 These are **not essential** to the MVP, but would greatly improve UX:
