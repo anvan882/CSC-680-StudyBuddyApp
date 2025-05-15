@@ -1,6 +1,16 @@
+## 🧑‍💻 Team Members
+
+| Name              | GitHub Username     | Email                    |
+|-------------------|---------------------|---------------------------|
+| **Akash Lama**         | `Sky343`            | alama@sfsu.edu            |
+| **Arvin Ghanizadeh** | `arvinghanizadeh` | aghanizadeh@sfsu.edu     |
+| **Annison Van**   | `anvan882`          | avan@sfsu.edu             |
+
+
 # 📚 StudyBuddy
 
 **StudyBuddy** is a lightweight iOS productivity app built with **SwiftUI** that helps students track assignments, set goals, and stay organized during their academic journey. This app is designed to be simple, intuitive, and fast — perfect for students who need a no-fuss way to manage tasks.
+
 
 ## 🧾 Proposal
 
@@ -15,6 +25,9 @@ These are the **required features** to meet the project’s goals and deliver a 
 - Sign in anonymously per device for personal goal tracking
 - Navigation across Home, Session, Goals, and Settings screens
 - To be easy, simple and quick to use
+
+**No Login Needed**
+No accounts, no passwords. This app just works and your device gets a unique ID, and everything you do is saved securely with Firebase, just for you.
 
 ### 🌟 Nice-to-Have Features (Future Enhancements)
 These are **not essential** to the MVP, but would greatly improve UX:
@@ -39,15 +52,6 @@ These are **not essential** to the MVP, but would greatly improve UX:
 - **SwiftUI** for UI design and navigation
 - **FireBase** to store weekly progress, and long term goals
 - **Xcode 15+** and iOS 16+
-
-## 🧑‍💻 Team Members
-
-| Name              | GitHub Username     | Email                    |
-|-------------------|---------------------|---------------------------|
-| **Akash Lama**         | `Sky343`            | alama@sfsu.edu            |
-| **Arvin Ghanizadeh** | `arvinghanizadeh` | aghanizadeh@sfsu.edu     |
-| **Annison Van**   | `anvan882`          | avan@sfsu.edu             |
-
 
 ## 🛠 Setup Instructions
 
