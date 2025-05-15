@@ -56,11 +56,8 @@ struct GoalsView: View {
                 .bold()
             Spacer()
         }
-        .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top ?? 20)
-        .padding(.bottom, 12)
-        .padding(.horizontal)
+        .padding()
         .background(Color(red: 0.46, green: 0.68, blue: 0.96))
-        .ignoresSafeArea(edges: .top)
     }
 
     // MARK: - Long-Term Goal Section
