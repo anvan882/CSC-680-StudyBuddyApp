@@ -14,6 +14,7 @@ These are the **required features** to meet the project’s goals and deliver a 
 - Save user progress to Firestore (e.g., goals, streak, rewards)
 - Sign in anonymously per device for personal goal tracking
 - Navigation across Home, Session, Goals, and Settings screens
+- To be easy, simple and quick to use
 
 ### 🌟 Nice-to-Have Features (Future Enhancements)
 These are **not essential** to the MVP, but would greatly improve UX:
@@ -28,6 +29,7 @@ These are **not essential** to the MVP, but would greatly improve UX:
   
 ## The Wireframe for project
 
+- Here is our Wireframe:
 <img width="800" alt="Screenshot 2025-05-13 at 3 09 58 PM" src="https://github.com/user-attachments/assets/b9f17abf-4174-4f0b-867d-ec738c90e532" />
 
 
