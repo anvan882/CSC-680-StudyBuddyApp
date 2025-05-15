@@ -3,6 +3,8 @@ DerivedData/
 *.xcworkspace
 *.xcuserstate
 *.xcuserdata
+*.xcuserdatad
+
 *.DS_Store
 
 # Build products
