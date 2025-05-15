@@ -38,9 +38,6 @@ struct SubjectFormView: View {
                     .keyboardType(.numbersAndPunctuation)
             }
 
-            Section(header: Text("Goal")) {
-                TextField("Goal", text: $goal)
-            }
 
             Section(header: Text("Checklist (comma separated)")) {
                 TextField("Checklist", text: $checklist)

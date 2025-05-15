@@ -50,7 +50,6 @@ struct GoalsView: View {
     // MARK: - Header
     private var header: some View {
         HStack {
-            Image(systemName: "chevron.left")
             Spacer()
             Text("Goals")
                 .font(.largeTitle)

@@ -33,7 +33,8 @@ struct MainScreen: View {
                             Spacer()
 
                             Text("STUDY BUDDY")
-                                .font(.system(size: 24, weight: .bold, design: .rounded))
+                                .font(.system(.title, design: .rounded))
+                                .fontWeight(.heavy)
                                 .foregroundColor(.black)
 
                             Spacer()

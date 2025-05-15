@@ -60,7 +60,6 @@ struct SessionView: View {
     // MARK: - Header
     private var header: some View {
         HStack {
-            Image(systemName: "chevron.left")
             Spacer()
             Text("Session")
                 .font(.largeTitle)

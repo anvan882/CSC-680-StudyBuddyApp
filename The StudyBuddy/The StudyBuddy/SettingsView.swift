@@ -16,11 +16,6 @@ struct SettingsView: View {
                     }
                 }
 
-                Section(header: Text("Preferences")) {
-                    Toggle("Enable Notifications", isOn: $notificationsEnabled)
-                    Toggle("Dark Mode", isOn: $darkMode)
-                }
-
                 Section(header: Text("About")) {
                     HStack {
                         Text("Version")
